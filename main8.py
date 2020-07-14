@@ -6,7 +6,7 @@ wiki = wikipedia.page("Barack Obama")
 
 entire_page = wiki.content.lower()
 
-entire_page = re.sub('[!@#$,:;_()\'=]', '', entire_page)
+entire_page = re.sub('[^a-z0-9 ]', '', entire_page)
 
 words = entire_page.split()
 

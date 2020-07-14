@@ -6,7 +6,7 @@ wiki = wikipedia.page("Barack Obama")
 
 entire_page = wiki.content.lower()
 
-entire_page = re.sub('[!@#$,:;_()\'=]', '', entire_page)
+entire_page = re.sub('[^a-z0-9 ]', '', entire_page)
 
 unwanted_words = ["the", "in", "of", "and", "to", "a", "on",
                   "for", "was", "as", "from", "with", "by", "that", "at",
