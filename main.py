@@ -1,3 +1,6 @@
+# lets start by saying hi to our compiler...
+
+
 from urllib.request import urlopen
 
 url = "https://en.wikipedia.org/wiki/Barack_Obama"
