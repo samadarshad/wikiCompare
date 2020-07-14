@@ -4,8 +4,8 @@ import wikipedia
 from collections import Counter
 
 pageA_name = "Barack Obama"
-pageB_name = "Cheese"
-topXwords = 10
+pageB_name = "Hillary Clinton"
+topXwords = 25
 
 def GetWordsFrequency(page_title):
     wiki = wikipedia.page(page_title)
@@ -44,14 +44,11 @@ def GetWordsFrequency(page_title):
 pageA_dictionary = GetWordsFrequency(pageA_name)
 pageB_dictionary = GetWordsFrequency(pageB_name)
 
-print(pageA_dictionary)
-print(pageB_dictionary)
-
-shared_items = {x: pageA_dictionary[x]*pageB_dictionary[x] for x in pageA_dictionary if x in pageB_dictionary}
-print(shared_items)
-
-
 vals = [pageA_dictionary[x]*pageB_dictionary[x] for x in pageA_dictionary if x in pageB_dictionary]
-print(vals)
+
 print("The similarity score between " + pageA_name + " and " + pageB_name + " is " + str(sum(vals)))
 
+
+#The similarity score between Barack Obama and Cheese is          0.0027870668459589612
+#The similarity score between Barack Obama and Donald Trump is    0.026775065006901966
+#The similarity score between Barack Obama and Hillary Clinton is 0.011049359566174189
