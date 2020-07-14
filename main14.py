@@ -1,5 +1,3 @@
-# nows the fun bit, lets prepare to compare this list with another pages' list. But first, we'll need to refactor our code so we can re-use it for the other page easily.
-
 import wikipedia
 from collections import Counter
 
@@ -34,9 +32,6 @@ def GetWordsFrequency(page_title):
             del counts[word]
 
     total = sum([item[1] for item in counts.most_common(topXwords)])
-
-    # for item, freq in counts.most_common(topXwords):
-    #     print(item, '=', freq/total)
 
     return {item : freq / total for (item, freq) in counts.most_common(topXwords)}
 
