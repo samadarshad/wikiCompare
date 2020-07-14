@@ -52,6 +52,10 @@ print(shared_items)
 
 
 vals = [pageA_dictionary[x]*pageB_dictionary[x] for x in pageA_dictionary if x in pageB_dictionary]
+# NOTE: our method here to get a similarity score by multiplying both frequencies, this isnt mathematically sound, i.e.
+# if I take two identical pages, I still wont get 100%. Maybe if you ask Anindya or someone, he'll be able to give you a more mathematically sound algorithm
+# but for now, I'm just doing this method, as a cheap and easy way to get a feel of similarity
+
 print(vals)
 print("The similarity score between " + pageA_name + " and " + pageB_name + " is " + str(sum(vals)))
 
