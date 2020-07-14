@@ -1,20 +1,14 @@
 import wikipedia
 from collections import Counter
+import re
 
 wiki = wikipedia.page("Barack Obama")
 
-entire_page = wiki.content
+entire_page = wiki.content.lower()
 
-entire_page_lower = entire_page.lower()
+entire_page = re.sub('[!@#$,:;_()\'=]', '', entire_page)
 
-entire_page_lower_filtered = entire_page_lower
-
-unwanted_signs = [';', ':', '!', "*", "=", ",", ".", "'s", "(", ")"]
-
-for i in unwanted_signs :
-    entire_page_lower_filtered = entire_page_lower_filtered.replace(i, '')
-
-words = entire_page_lower_filtered.split()
+words = entire_page.split()
 
 counts = Counter(words)
 

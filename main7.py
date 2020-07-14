@@ -1,22 +1,22 @@
 import wikipedia
 from collections import Counter
+import re
 
 wiki = wikipedia.page("Barack Obama")
 
-entire_page = wiki.content
+entire_page = wiki.content.lower()
 
-entire_page_lower = entire_page.lower()
+entire_page = re.sub('[!@#$,:;_()\'=]', '', entire_page)
 
-entire_page_lower_filtered = entire_page_lower
-
-unwanted_words = [';', ':', '!', "*", "=", ",", ".",
-                  "the", "in", "of", "and", "to", "a", "on",
+unwanted_words = ["the", "in", "of", "and", "to", "a", "on",
                   "for", "was", "as", "from", "with", "by", "that", "at",
                   "an", "after", "which", "not", "be", "had", "is", "it"]
-for i in unwanted_words :
-    entire_page_lower_filtered = entire_page_lower_filtered.replace(i, '')
 
-words = entire_page_lower_filtered.split()
+entire_page_cleaned = entire_page
+for i in unwanted_words :
+    entire_page_cleaned = entire_page_cleaned.replace(i, '')
+
+words = entire_page_cleaned.split()
 
 counts = Counter(words)
 
