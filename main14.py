@@ -39,7 +39,8 @@ def GetWordsFrequency(page_title):
 pageA_dictionary = GetWordsFrequency(pageA_name)
 pageB_dictionary = GetWordsFrequency(pageB_name)
 
-vals = [pageA_dictionary[x]*pageB_dictionary[x] for x in pageA_dictionary if x in pageB_dictionary]
+vals = [pageA_dictionary[x] * (1 - (pageB_dictionary[x] - pageA_dictionary[x])) for x in pageA_dictionary if
+        x in pageB_dictionary]
 
 print("The similarity score between " + pageA_name + " and " + pageB_name + " is " + str(sum(vals)))
 

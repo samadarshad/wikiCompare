@@ -37,14 +37,16 @@ def Compare(A, B):
     pageA_dictionary = GetWordsFrequency(A)
     pageB_dictionary = GetWordsFrequency(B)
 
-    vals = [pageA_dictionary[x]*pageB_dictionary[x] for x in pageA_dictionary if x in pageB_dictionary]
+    vals = [pageA_dictionary[x]*(1-(pageB_dictionary[x]-pageA_dictionary[x])) for x in pageA_dictionary if x in pageB_dictionary]
 
     print("The similarity score between " + A + " and " + B + " is " + str(sum(vals)))
 
 Compare("Barack Obama", "Cheese")
 Compare("Barack Obama", "Donald Trump")
 Compare("Barack Obama", "Hillary Clinton")
+Compare("Barack Obama", "Barack Obama")
 
-#The similarity score between Barack Obama and Cheese is          0.0027870668459589612
-#The similarity score between Barack Obama and Donald Trump is    0.026775065006901966
-#The similarity score between Barack Obama and Hillary Clinton is 0.011049359566174189
+# The similarity score between Barack Obama and Cheese is 0.11396291971804834
+# The similarity score between Barack Obama and Donald Trump is 0.4737390186759765
+# The similarity score between Barack Obama and Hillary Clinton is 0.4623566670918399
+# The similarity score between Barack Obama and Barack Obama is 1.0000000000000002
