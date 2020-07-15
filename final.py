@@ -17,7 +17,10 @@ def GetWordsFrequency(page_title):
 
     unwanted_words = ["the", "in", "of", "and", "to", "a", "on",
                       "for", "was", "as", "from", "with", "by", "that", "at",
-                      "an", "after", "which", "not", "be", "had", "is", "it"]
+                      "an", "after", "which", "not", "be", "had", "is", "it",
+                      "also", "during", "who", "were", "their", "where", "his",
+                      "about", "he", "she", "her", "them", "its", "they"
+                      ]
 
     for word in unwanted_words:
         if word in counts:
@@ -38,7 +41,7 @@ def Compare(A, B):
             1 -
              abs((B_freq[x]-A_freq[x])/A_freq[x])
              ) for x in A_freq if x in B_freq}
-    #note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
+    #note that this IS an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
 
     score = sum(comparedWords.values())
 
