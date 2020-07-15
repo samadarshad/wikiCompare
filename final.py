@@ -36,13 +36,13 @@ def GetWordsFrequency(page_title):
 
 def CalculateScoreBetween(a, b):
     return min(a, b)
+    #note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
 
 def Compare(A, B):
     A_freq = GetWordsFrequency(A)
     B_freq = GetWordsFrequency(B)
 
     comparedWords = {x : CalculateScoreBetween(A_freq[x], B_freq[x]) for x in A_freq if x in B_freq}
-    #note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
 
     score = sum(comparedWords.values())
 
