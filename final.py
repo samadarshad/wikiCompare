@@ -19,7 +19,8 @@ def GetWordsFrequency(page_title):
                       "for", "was", "as", "from", "with", "by", "that", "at",
                       "an", "after", "which", "not", "be", "had", "is", "it",
                       "also", "during", "who", "were", "their", "where", "his",
-                      "about", "he", "she", "her", "them", "its", "they"
+                      "about", "he", "she", "her", "them", "its", "they", "has",
+                      "are", "have", "most"
                       ]
 
     for word in unwanted_words:
@@ -41,14 +42,18 @@ def Compare(A, B):
             1 -
              abs((B_freq[x]-A_freq[x])/A_freq[x])
              ) for x in A_freq if x in B_freq}
-    #note that this IS an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
+    #note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
 
     score = sum(comparedWords.values())
 
     print("The similarity score between " + A + " and " + B + " is " + str(score))
+    print("")
     print("The most common words are:")
     print(Counter(comparedWords).most_common(10))
+    print("")
 
 Compare("Barack Obama", "Barack Obama")
 Compare("Barack Obama", "Donald Trump")
 Compare("Barack Obama", "Cheese")
+Compare("Pakistan", "China")
+Compare("Pakistan", "India")
