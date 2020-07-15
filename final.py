@@ -23,9 +23,9 @@ def GetWordsFrequency(page_title):
         if word in counts:
             del counts[word]
 
-    total = sum([item[1] for item in counts.most_common(topXwords)])
+    total = sum([freq for (word, freq) in counts.most_common(topXwords)])
 
-    return {item : freq / total for (item, freq) in counts.most_common(topXwords)}
+    return {word : freq / total for (word, freq) in counts.most_common(topXwords)}
 
 def Compare(A, B):
     A_freq = GetWordsFrequency(A)
@@ -42,8 +42,3 @@ Compare("Barack Obama", "Cheese")
 Compare("Barack Obama", "Donald Trump")
 Compare("Barack Obama", "Hillary Clinton")
 Compare("Barack Obama", "Barack Obama")
-
-# The similarity score between Barack Obama and Cheese is 0.11396291971804834
-# The similarity score between Barack Obama and Donald Trump is 0.4737390186759765
-# The similarity score between Barack Obama and Hillary Clinton is 0.4623566670918399
-# The similarity score between Barack Obama and Barack Obama is 1.0000000000000002
