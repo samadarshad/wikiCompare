@@ -40,7 +40,7 @@ def Compare(A, B):
 
     comparedWords = { x : A_freq[x] * (
             1 -
-             abs((B_freq[x]-A_freq[x])/A_freq[x])
+             abs(B_freq[x]-A_freq[x])/max(B_freq[x], A_freq[x])
              ) for x in A_freq if x in B_freq}
     #note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
 
