@@ -1,23 +1,17 @@
 import wikipedia
 from collections import Counter
+import re
 
 topXwords = 25
 
 def GetWordsFrequency(page_title):
     wiki = wikipedia.page(page_title)
 
-    entire_page = wiki.content
+    entire_page = wiki.content.lower()
 
-    entire_page_lower = entire_page.lower()
+    entire_page = re.sub('[^a-z0-9 ]', '', entire_page)
 
-    entire_page_lower_filtered = entire_page_lower
-
-    unwanted_signs = [';', ':', '!', "*", "=", ",", ".", "'s", "(", ")"]
-
-    for i in unwanted_signs:
-        entire_page_lower_filtered = entire_page_lower_filtered.replace(i, '')
-
-    words = entire_page_lower_filtered.split()
+    words = entire_page.split()
 
     counts = Counter(words)
 
@@ -34,10 +28,13 @@ def GetWordsFrequency(page_title):
     return {item : freq / total for (item, freq) in counts.most_common(topXwords)}
 
 def Compare(A, B):
-    pageA_dictionary = GetWordsFrequency(A)
-    pageB_dictionary = GetWordsFrequency(B)
+    A_freq = GetWordsFrequency(A)
+    B_freq = GetWordsFrequency(B)
 
-    vals = [pageA_dictionary[x]*(1-(pageB_dictionary[x]-pageA_dictionary[x])) for x in pageA_dictionary if x in pageB_dictionary]
+    vals = [A_freq[x] * (
+            1 -
+             abs(B_freq[x]-A_freq[x])/A_freq[x]
+             ) for x in A_freq if x in B_freq]
 
     print("The similarity score between " + A + " and " + B + " is " + str(sum(vals)))
 
