@@ -66,7 +66,6 @@ def Compare(titleA, titleB):
     score = sum(comparedWords.values())
 
     print("The similarity score between " + titleA + " and " + titleB + " is " + str(score))
-    print("")
     print("The most common words are:")
     print([word for (word, freq) in Counter(comparedWords).most_common(10)])
     print("")
