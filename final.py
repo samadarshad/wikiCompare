@@ -2,7 +2,7 @@ import wikipedia
 from collections import Counter
 import re
 
-topXwords = 250
+topXwords = 1000
 
 stop_words = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you', "you're", "you've", "you'll", "you'd",
               'your', 'yours', 'yourself', 'yourselves', 'he', 'him', 'his', 'himself', 'she', "she's", 'her', 'hers',
@@ -68,7 +68,7 @@ def Compare(titleA, titleB):
     print("The similarity score between " + titleA + " and " + titleB + " is " + str(score))
     print("")
     print("The most common words are:")
-    print(Counter(comparedWords).most_common(10))
+    print([word for (word, freq) in Counter(comparedWords).most_common(10)])
     print("")
 
 
