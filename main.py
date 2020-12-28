@@ -16,3 +16,6 @@ print(html[1:50000])
 # this means writing some code to go through all this data, getting rid of all the crap, keeping only the good
 # but fortunately, someone has already done this
 # we're gonna steal his code and use it in our program
+
+
+#abc hmir
