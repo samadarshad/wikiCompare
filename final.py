@@ -22,7 +22,10 @@ stop_words = ['i', 'me', 'my', 'myself', 'we', 'our', 'ours', 'ourselves', 'you'
 
 
 def GetWordsFrequency(page_title):
-    page = wikipedia.page(page_title)
+    try:
+        page = wikipedia.page(page_title)
+    except:
+        raise("Unrecognised page title, please be more specific.")
 
     page = page.content.lower()
 
