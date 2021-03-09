@@ -1,13 +1,15 @@
 import unittest
 from wikiCompare.WikiComparer import WikiComparer
 from parameterized import parameterized
+from unittest.mock import patch, Mock
 
 class TestWikiComparer(unittest.TestCase):
-    def test_get_words_from_wiki(self):
+    @patch('wikiCompare.WikiComparer.wikipedia')
+    def test_get_words_from_wiki(self, mock_wiki):
+        mock_wiki.page().content = "hello abc"
         wikiComparer = WikiComparer()
-        page = wikiComparer.get_page_from_wiki("Barack Obama")
-        expected_minimum_size_of_page = 100
-        self.assertGreater(len(page), expected_minimum_size_of_page)
+        page = wikiComparer.get_page_from_wiki("Page Title")
+        self.assertEqual(page, "hello abc")
 
     def test_remove_stop_words(self):
         wikiComparer = WikiComparer()

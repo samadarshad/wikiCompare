@@ -30,16 +30,10 @@ def timing(function):
 
 class WikiComparer:
 
-    def __init__(self, wikipedia=wikipedia):
-        self.wikipedia = wikipedia
-
     @timing
     def get_page_from_wiki(self, title):
         try:
-            start = time()
             page = wikipedia.page(title).content
-            end = time()
-            duration_secs = round((end - start), ndigits=2)
             logging.info("First 100 characters of page: {}".format(page[:100]))
             return page
 
