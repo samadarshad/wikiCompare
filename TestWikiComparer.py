@@ -1,15 +1,20 @@
 import unittest
-from wikiCompare.WikiComparer import WikiComparer
+from unittest.mock import patch
+
 from parameterized import parameterized
-from unittest.mock import patch, Mock
+
+from wikiCompare.WikiComparer import WikiComparer
+
+
 
 class TestWikiComparer(unittest.TestCase):
     @patch('wikiCompare.WikiComparer.wikipedia')
     def test_get_words_from_wiki(self, mock_wiki):
-        mock_wiki.page().content = "hello abc"
+        mock_wiki_page = "hello abc"
+        mock_wiki.page().content = mock_wiki_page
         wikiComparer = WikiComparer()
         page = wikiComparer.get_page_from_wiki("Page Title")
-        self.assertEqual(page, "hello abc")
+        self.assertEqual(page, mock_wiki_page)
 
     def test_remove_stop_words(self):
         wikiComparer = WikiComparer()
@@ -19,7 +24,7 @@ class TestWikiComparer(unittest.TestCase):
         self.assertEqual(clean_words, expected_words)
 
     @parameterized.expand([
-        ["obama", "obama president", ["obam", "presid"]], #stem removes the last bit of the word
+        ["obama", "obama president", ["obam", "presid"]],  # stem removes the last bit of the word
         ["dog", "Dog Dog's Dogs dog dog, dog! dogging dogged", ["dog", "dog", "dog", "dog", "dog", "dog", "dog", "dog"]]
     ])
     def test_get_words_from_page(self, name, page, expected_words):
@@ -48,9 +53,18 @@ class TestWikiComparer(unittest.TestCase):
         words_by_frequency = wikiComparer.get_words_by_frequency(words_by_count, 3)
         self.assertEqual(words_by_frequency, expected_word_frequencies)
 
-    def test_get_words_frequency_of_page(self):
+    @patch('wikiCompare.WikiComparer.wikipedia')
+    def test_get_words_frequency_of_page(self, mock_wiki):
+        mock_wiki_page = "Hello, hello! Running run runner"
+        mock_wiki.page().content = mock_wiki_page
         wikiComparer = WikiComparer()
-        words_frequency = wikiComparer.get_words_frequency_of_page("Barack Obama")
+        words_by_frequency = wikiComparer.get_words_frequency_of_page("Page title")
+        expected_word_frequencies = {"hello": 0.4, "run": 0.6}
+        self.assertEqual(words_by_frequency, expected_word_frequencies)
+
+        
+
+
 
 if __name__ == '__main__':
     unittest.main()

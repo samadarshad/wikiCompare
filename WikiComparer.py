@@ -1,32 +1,16 @@
-import re  # For preprocessing
-from time import time  # To time our operations
+import re
 import wikipedia
 from collections import Counter
 import logging
-from functools import wraps
 from nltk.stem.lancaster import LancasterStemmer
-# import nltk
-# nltk.download('stopwords')
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+from wikiCompare.utils import timing
 
 logging.basicConfig(format="%(levelname)s - %(asctime)s: %(message)s", datefmt='%H:%M:%S', level=logging.INFO)
 
 TOP_X_WORDS = 100
 stop_words = set(stopwords.words('english'))
-
-
-def timing(function):
-    @wraps(function)
-    def wrap(*args, **kwargs):
-        start = time()
-        result = function(*args, **kwargs)
-        end = time()
-        logging.info("%r(%r, %r) took %2.2f secs" % (function.__name__, args, kwargs, end - start))
-        return result
-
-    return wrap
-
 
 class WikiComparer:
 
