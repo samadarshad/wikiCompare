@@ -32,13 +32,6 @@ class TestWikiComparer(unittest.TestCase):
         words = wikiComparer.get_words_from_page(page)
         self.assertEqual(words, expected_words)
 
-    def test_remove_stop_words_a(self):
-        wikiComparer = WikiComparer()
-        words = ["the", "doga", "was", "happy"]
-        expected_words = ["doga", "happy"]
-        clean_words = wikiComparer.remove_stop_words(words)
-        self.assertEqual(clean_words, expected_words)
-
     def test_get_words_by_count(self):
         wikiComparer = WikiComparer()
         words = ["a", "b", "a", "c"]
@@ -62,8 +55,15 @@ class TestWikiComparer(unittest.TestCase):
         expected_word_frequencies = {"hello": 0.4, "run": 0.6}
         self.assertEqual(words_by_frequency, expected_word_frequencies)
 
-        
-
+    @parameterized.expand([
+        ["similar_100pc", {"hello": 0.4, "run": 0.6}, {"hello": 0.4, "run": 0.6}, 1],
+        ["similar_60pc", {"hello": 0.4, "run": 0.6}, {"hello": 0.0, "run": 0.6}, 0.6],
+        ["similar_0pc", {"hello": 0.4, "run": 0.0}, {"hello": 0.0, "run": 0.6}, 0.0],
+    ])
+    def test_calculate_similarity(self, name, a, b, expected_similarity):
+        wikiComparer = WikiComparer()
+        similarity = wikiComparer.calculate_similarity(a, b)
+        self.assertEqual(similarity, expected_similarity)
 
 
 if __name__ == '__main__':

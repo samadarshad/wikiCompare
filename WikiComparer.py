@@ -1,16 +1,25 @@
 import re
+
+import numpy
 import wikipedia
 from collections import Counter
 import logging
 from nltk.stem.lancaster import LancasterStemmer
 from nltk.corpus import stopwords
 from nltk.tokenize import word_tokenize
+
 from wikiCompare.utils import timing
 
 logging.basicConfig(format="%(levelname)s - %(asctime)s: %(message)s", datefmt='%H:%M:%S', level=logging.INFO)
 
 TOP_X_WORDS = 100
 stop_words = set(stopwords.words('english'))
+
+
+def calculate_score_between_frequency(a, b):
+    return min(a, b)
+    # note that this is an imperfect method for calculating the similarity between two frequency tables. A more suitable method would be a chi-squared test or something.
+
 
 class WikiComparer:
 
@@ -59,3 +68,10 @@ class WikiComparer:
         words_by_freq = self.get_words_by_frequency(words_by_count, TOP_X_WORDS)
         logging.info("Top 10 words and their frequencies: {}".format(Counter(words_by_freq).most_common(10)))
         return words_by_freq
+
+    @timing
+    def calculate_similarity(self, word_freq_a, word_freq_b):
+        similarity_score = {x: calculate_score_between_frequency(word_freq_a[x], word_freq_b[x])
+                            for x in word_freq_a if x in word_freq_b}
+        score = sum(similarity_score.values())
+        return score
