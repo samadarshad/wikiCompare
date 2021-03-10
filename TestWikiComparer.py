@@ -96,6 +96,5 @@ class TestWikiComparer(unittest.TestCase):
         score = wikiComparer.compare_pages("Page title A", "Page title B")
         self.assertEqual(score, expected_score)
 
-
 if __name__ == '__main__':
     unittest.main()
