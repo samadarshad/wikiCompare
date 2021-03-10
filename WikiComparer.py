@@ -70,8 +70,26 @@ class WikiComparer:
         return words_by_freq
 
     @timing
-    def calculate_similarity(self, word_freq_a, word_freq_b):
-        similarity_score = {x: calculate_score_between_frequency(word_freq_a[x], word_freq_b[x])
-                            for x in word_freq_a if x in word_freq_b}
-        score = sum(similarity_score.values())
+    def get_compared_words(self, word_freq_a, word_freq_b):
+        return {x: calculate_score_between_frequency(word_freq_a[x], word_freq_b[x])
+                for x in word_freq_a if x in word_freq_b}
+
+    @timing
+    def calculate_similarity(self, compared_words):
+        score = sum(compared_words.values())
+        return score
+
+    @timing
+    def compare_pages(self, title_a, title_b):
+        freq_a = self.get_words_frequency_of_page(title_a)
+        freq_b = self.get_words_frequency_of_page(title_b)
+
+        compared_words = self.get_compared_words(freq_a, freq_b)
+
+        score = self.calculate_similarity(compared_words)
+
+        print("The similarity score between " + title_a + " and " + title_b + " is " + str(score))
+        print("The most common words are:")
+        print([word for (word, freq) in Counter(compared_words).most_common(10)])
+        print("")
         return score
